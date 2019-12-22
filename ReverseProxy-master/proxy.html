@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+
+<head>
+  <title></title>
+
+  <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+
+<body>
+  <div id='app'>
+    <v-app>
+      <v-content fill-height>
+        <p class="display-3 text-xs-center ma-3">
+          A look at NAT and reverse proxies
+        </p>
+        <v-container >
+          <v-layout align-center justify-center>
+            <v-flex xs12>
+              <v-timeline dense align-top>
+                <v-timeline-item large v-for="row in rows" :key="row.Desc" :color="row.Color" :icon="row.Icon">
+                 
+                  <v-card dark :color="row.Color" class="elevation-2">
+                    <v-card-title class="title">
+                      {{row.Desc}}
+                    </v-card-title>
+                    <v-card-text class="white text--primary">
+                        <p class="subheading">From {{row.FromIP}}:{{row.FromPort}}</p>
+                        <p class="subheading">To {{row.ToIP}}:{{row.ToPort}}</p>
+                    </v-card-text>
+                  </v-card>
+                </v-timeline-item>
+              </v-timeline>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-content>
+    </v-app>
+
+  </div>
+
+  <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+  <script src='https://unpkg.com/vue'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js'></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+
+
+  <script>
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        rows: [
+          {
+            Desc: "Client sends a request to server",
+            FromIP: "192.168.0.5",
+            FromPort: "45322",
+            ToIP: "204.34.65.10",
+            ToPort: "443",
+            Icon: "home",
+            Color: "red lighten-1"
+          },
+          {
+            Desc: "Client router performs NAT using its public IP",
+            FromIP: "37.89.10.65",
+            FromPort: "36690",
+            ToIP: "204.34.65.10",
+            ToPort: "443",
+            Icon: "router",
+            Color: "red lighten-1"
+          },
+          {
+            Desc: "Request is routed through the internet",
+            FromIP: "37.89.10.65",
+            FromPort: "36690",
+            ToIP: "204.34.65.10",
+            ToPort: "443",
+            Icon: "cloud",
+            Color: "grey"
+          },
+          {
+            Desc: "Reverse proxy performs HTTPS to HTTP downgrade",
+            FromIP: "37.89.10.65",
+            FromPort: "36690",
+            ToIP: "192.168.0.6",
+            ToPort: "80",
+            Icon: "view_agenda",
+            Color: "blue lighten-1"
+          },
+          {
+            Desc: "HTTP sever receives request",
+            FromIP: "37.89.10.65",
+            FromPort: "36690",
+            ToIP: "192.168.0.6",
+            ToPort: "80",
+            Icon: "dns",
+            Color: "blue lighten-1"
+          },
+
+        ],
+      },
+      methods: {
+
+      },
+    });
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>

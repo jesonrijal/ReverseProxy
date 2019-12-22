@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+
+<head>
+  <title></title>
+  <style>
+
+  </style>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+
+<body>
+  <div id='app'>
+    <v-app>
+      <v-content>
+        <p class="display-3 text-xs-center">
+          A simplified look at internet protocols
+        </p>
+        <v-container grid-list-sm>
+          <v-layout row align-center justify-center>
+            <v-btn flat @click="previous()">&lt;&nbsp;Previous</v-btn>
+            <v-btn flat @click="next()">Next&nbsp;&gt;</v-btn>
+
+          </v-layout>
+
+          <v-layout row wrap v-for="row in rows" :key="row.text">
+            <v-scale-transition origin = "center middle 0">
+              <v-flex xs4 v-show="row.level <= currentLevel">
+                <v-card>
+                  <v-card-title>
+                    <p>{{row.type}}</p>
+                  </v-card-title>
+                </v-card>
+              </v-flex>
+            </v-scale-transition>
+            <v-scale-transition origin = "center middle 0">
+              <v-flex xs8 v-show="row.level <= currentLevel">
+                <v-card>
+                  <v-card-title>
+                    <p>{{row.text}}</p>
+                  </v-card-title>
+                </v-card>
+              </v-flex>
+            </v-scale-transition>
+          </v-layout>
+        </v-container>
+      </v-content>
+    </v-app>
+
+  </div>
+
+  <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+  <script src='https://unpkg.com/vue'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js'></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        currentLevel: 0,
+
+        rows: [
+          {
+            type: "ip (datagram)",
+            text: "ip address: xxx.xxx.xxx.xxx",
+            level: 4
+          },
+          {
+            type: "tcp (segment)",
+            text: "port: xxxx",
+            level: 3
+          },
+          {
+            type: "http",
+            text: "GET example.com HTTP/X.X",
+            level: 2
+          },
+          {
+            type: "html",
+            text: "<html>",
+            level: 1
+          },
+          {
+            type: "content",
+            text: "Hello World",
+            level: 0
+          },
+          {
+            type: "html",
+            text: "</html>",
+            level: 1
+          }
+        ],
+      },
+      computed: {
+        shownRows() {
+          let that = this;
+          return this.rows.filter(i => i.level <= that.currentLevel);
+        }
+      },
+      methods: {
+        previous() {
+          this.currentLevel--;
+          if (this.currentLevel < 0)
+            this.currentLevel = 0;
+        },
+        next() {
+          this.currentLevel++;
+          let maxLevel = Math.max(...this.rows.map(i => i.level));
+          if (this.currentLevel > maxLevel)
+            this.currentLevel = maxLevel;
+        }
+
+      },
+    });
+
+
+  </script>
+
+</body>
+
+</html>

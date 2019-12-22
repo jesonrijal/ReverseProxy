@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+
+<head>
+  <title></title>
+
+  <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+
+<body>
+  <div id='app'>
+    <v-app>
+      <v-content fill-height>
+        <p class="display-3 text-xs-center ma-3">
+          A look at NAT and reverse proxies
+        </p>
+        <v-container >
+          <v-layout align-center justify-center>
+            <v-flex xs12 sm10 md8 lg6>
+              <v-timeline dense align-top>
+                <v-timeline-item large v-for="row in rows" :key="row.Desc" :color="row.Color + ' lighten-1'" :icon="row.Icon">
+                 
+                  <v-card dark :color="row.Color + ' lighten-1'" class="elevation-2">
+                    <v-card-title class="title">
+                      {{row.Desc}}
+                    </v-card-title>
+                    <v-card-text class="white text--primary">
+                        <p class="subheading">{{row.Text}}</p>
+                    </v-card-text>
+                  </v-card>
+                </v-timeline-item>
+              </v-timeline>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-content>
+    </v-app>
+
+  </div>
+
+  <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+  <script src='https://unpkg.com/vue'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js'></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+
+
+  <script>
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        rows: [
+          {
+            Desc: "Purchase a domain name on a domain name provider",
+            Text: "Examples of domain name providers include Namecheap",
+            Icon: "public",
+            Color: "teal",
+          },
+          {
+            Desc: "Choose a Content Delivery Network",
+            Text: "Examples of content delivery networks include Cloudflare and AWS",
+            Icon: "view_agenda",
+            Color: "green"
+          },
+          {
+            Desc: "Set your domain name provider's name servers to those provided by your content delivery network",
+            Text: "For example, if your using Cloudflare, the servers are arch.ns.cloudflare.com & gwen.ns.cloudflare.com",
+            Icon: "public",
+            Color: "teal"
+          },
+          {
+            Desc: "Boot a virtual server",
+            Text: "Lots of cloud services let you do this. Examples include AWS (including EC2 or LightSail) and Digital Ocean",
+            Icon: "dns",
+            Color: "cyan"
+          },
+          {
+            Desc: "Have you content deliver network point to the IP address of your virtual server",
+            Text: "When you start your virtual server, you should get a public IP",
+            Icon: "view_agenda",
+            Color: "green"
+          },
+          {
+            Desc: "On your virtual server, create a reverse proxy listening on port 443",
+            Text: "You can do this with Nginx or node using the http-proxy package",
+            Icon: "dns",
+            Color: "cyan"
+          },
+          {
+            Desc: "Ask your content delivery network for a public and private key",
+            Text: "Put these into your reverse proxy. Make sure you don't commit these files to a public repository",
+            Icon: "view_agenda",
+            Color: "green"
+          },
+          {
+            Desc: "Setup your actual http server",
+            Text: "This server doesn't have to worry about public and private keys at all.",
+            Icon: "dns",
+            Color: "cyan"
+          },
+          {
+            Desc: "Point your users to the domain name you purchased",
+            Text: "Your website is protected behind the content delivery network and security with their keys",
+            Icon: "public",
+            Color: "teal"
+          },
+
+
+        ],
+      },
+      methods: {
+
+      },
+    });
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>
